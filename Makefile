@@ -6,7 +6,7 @@
 #    By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 07:56:38 by asfletch          #+#    #+#              #
-#    Updated: 2024/03/04 08:07:08 by asfletch         ###   ########.fr        #
+#    Updated: 2024/03/04 09:02:01 by asfletch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ CFLAGS = -Wall -Wextra -Werror -I./include/ -g
 
 VALGRIND_ENABLED = 1
 VALGRIND_CMD = valgrind
-VALGRIND_OPTS = valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --trace-children=yes
+VALGRIND_OPTS = valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes
 TARGET = philo
 $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
@@ -45,9 +45,6 @@ run_valgrind: $(TARGET)
 OBJ_DIR = obj
 OBJ = $(OBJ_DIR)/main.o \
 	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(wildcard src/utils/*.c)) \
-	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(wildcard src/parsing/*.c)) \
-	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(wildcard src/builtins/*.c)) \
-	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(wildcard src/execution/*.c))
 
 NAME = philo
 
