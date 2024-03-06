@@ -6,7 +6,7 @@
 #    By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 07:56:38 by asfletch          #+#    #+#              #
-#    Updated: 2024/03/04 09:02:01 by asfletch         ###   ########.fr        #
+#    Updated: 2024/03/06 09:58:17 by asfletch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,20 +27,10 @@ COLOUR_END = \033[0m
 
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -I./include/ -g
+CFLAGS = -Wall -Wextra -Werror -I./includes/ -g
 
-VALGRIND_ENABLED = 1
-VALGRIND_CMD = valgrind
-VALGRIND_OPTS = valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes
-TARGET = philo
-$(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
-run_valgrind: $(TARGET)
-	@echo "Running $(TARGET) with Valgrind..."
-	$(VALGRIND_CMD) $(VALGRIND_OPTS) ./$(TARGET)
-
-# CFLAGS += -Wall -Wextra -Werror -I./include/ -g3 -fsanitize=address -fsanitize=undefined
-# LDFLAGS += -fsanitize=address -fsanitize=undefined -lreadline
+CFLAGS += -Wall -Wextra -Werror -I./include/ -g3 -fsanitize=address -fsanitize=undefined
+LDFLAGS += -fsanitize=address -fsanitize=undefined -lreadline
 
 OBJ_DIR = obj
 OBJ = $(OBJ_DIR)/main.o \
@@ -48,11 +38,8 @@ OBJ = $(OBJ_DIR)/main.o \
 
 NAME = philo
 
-LIBFTDIR = libft
-LIBFT = $(LIBFTDIR)/libft.a
-
-$(NAME) : $(OBJ_DIR) $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LDFLAGS) -o $(NAME) -lreadline
+$(NAME) : $(OBJ_DIR) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ)  $(LDFLAGS) -o $(NAME) -lreadline
 	echo "$(COLOUR_MAGENTA)Philo compiled successfully!$(COLOUR_END)"
 
 $(OBJ_DIR):
@@ -62,9 +49,6 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT):
-	make -C $(LIBFTDIR) && make clean -C $(LIBFTDIR)
-
 all : $(NAME)
 
 clean:
@@ -72,17 +56,8 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	make fclean -C $(LIBFTDIR)
 	echo "$(COLOUR_MAGENTA)$(COLOUR_UNDERLINE)Philo cleaned successfully!$(COLOUR_END)"
 
 re: fclean all
 
 .PHONY: all clean fclean re
-
-valgrind:
-	$(MAKE) run_valgrind
-.PHONY: show_errors
-show_errors:
-	$(VALGRIND_CMD) $(VALGRIND_OPTS) --log-file=valgrind_errors.txt ./$(TARGET)
-	cat valgrind_errors.txt
-	rm -f valgrind_errors.txt

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 15:04:05 by asfletch          #+#    #+#             */
-/*   Updated: 2023/12/10 12:42:44 by asfletch         ###   ########.fr       */
+/*   Created: 2024/03/06 12:49:04 by asfletch          #+#    #+#             */
+/*   Updated: 2024/03/06 12:49:19 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../includes/philo.h"
 
 static int	check_overflow(long int converted_int, int sign)
 {

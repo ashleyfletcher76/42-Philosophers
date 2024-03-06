@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   print_helpers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/29 09:59:11 by asfletch          #+#    #+#             */
-/*   Updated: 2024/01/23 05:44:17 by asfletch         ###   ########.fr       */
+/*   Created: 2024/03/06 09:21:55 by asfletch          #+#    #+#             */
+/*   Updated: 2024/03/06 09:25:59 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "../includes/philo.h"
 
-char	*join_strings(char *stash, char *buffer)
+static void	ft_putchar_fd(char c, int fd)
 {
-	char	*new_stash;
-
-	if (stash == NULL || buffer == NULL)
-		return (NULL);
-	new_stash = ft_strjoin(stash, buffer);
-	if (new_stash == NULL)
-	{
-		free (stash);
-		return (NULL);
-	}
-	free (stash);
-	return (new_stash);
+	write(fd, &c, 1);
 }
+
+static void	ft_putstr_fd(char *str, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		ft_putchar_fd(str[i], fd);
+		i++;
+	}
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
+}
+
