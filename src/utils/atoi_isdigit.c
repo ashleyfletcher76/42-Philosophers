@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:49:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/06 12:49:19 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:15:25 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,11 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (sign * converted_int);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }

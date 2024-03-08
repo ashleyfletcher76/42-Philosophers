@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_helpers.c                                    :+:      :+:    :+:   */
+/*   print_and_exit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 09:21:55 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/06 09:25:59 by asfletch         ###   ########.fr       */
+/*   Created: 2024/03/06 13:14:17 by asfletch          #+#    #+#             */
+/*   Updated: 2024/03/06 13:14:48 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,8 @@ void	ft_putendl_fd(char *s, int fd)
 	ft_putchar_fd('\n', fd);
 }
 
+void	exit_message(char *msg)
+{
+	ft_putendl_fd(msg, 2);
+	exit(1);
+}
