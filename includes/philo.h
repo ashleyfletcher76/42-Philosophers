@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/08 11:52:54 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/09 13:14:49 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ typedef struct	s_philo_data t_philo_data;
 typedef struct	s_philo
 {
 	int				id;
+	int				meals_eaten;
+	u_int64_t		start_time;
+	bool			philo_full;
 	pthread_t		philo;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
@@ -47,6 +50,8 @@ typedef struct s_philo_data
 //main
 void		start_routine(t_philo_data *data);
 void		pick_up_forks(t_philo *philo);
+void		eating(t_philo *philo);
+void		my_sleep(t_philo *philo, u_int64_t time);
 
 //init
 void		init_struct(t_philo_data *data, int argc, char **argv);

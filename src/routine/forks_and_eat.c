@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:50:13 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/08 11:53:45 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/09 13:14:19 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,14 @@ void	pick_up_forks(t_philo *philo)
 		pthread_mutex_lock(philo->right);
 		printf("%llu %d has taken a fork\n", get_current_time(), philo->id);
 	}
-	printf("%llu %d is eating\n", get_current_time(), philo->id);
-	usleep(philo->general_data->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->right);
 	pthread_mutex_unlock(philo->left);
+}
+
+void	eating(t_philo *philo)
+{
+	printf("%llu %d is eating\n", get_current_time(), philo->id);
+	philo->meals_eaten = get_current_time() - philo->start_time;
+	philo->general_data->time_to_die = philo->meals_eaten + philo->general_data->time_to_die;
+	my_sleep(philo, philo->general_data->time_to_eat);
 }

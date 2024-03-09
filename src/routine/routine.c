@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:00:32 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/08 11:54:13 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/09 13:17:33 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,24 @@
 
 void	routine_one(t_philo *philo)
 {
+	philo->start_time = get_current_time();
 	while (1)
 	{
 		pick_up_forks(philo);
+		eating(philo);
+		pthread_mutex_unlock(philo->right);
+		pthread_mutex_unlock(philo->left);
+		// if (get_current_time() - philo->meals_eaten > (u_int64_t)philo->general_data->time_to_die)
+		// {
+		// 	printf("Philo %d has died\n", philo->id);
+		// 	break ;
+		// }
 		printf("%llu %d is sleeping\n", get_current_time(), philo->id);
-		usleep(philo->general_data->time_to_sleep * 1000);
+		my_sleep(philo, philo->general_data->time_to_sleep);
 		printf("%llu %d is thinking\n", get_current_time(), philo->id);
-		usleep(1000);
+		usleep(100);
 	}
 }
-
-// void	routine_one(t_philo *philo)
-// {
-// 	while (1)
-// 	{
-// 		if (philo->id % 2 == 1)
-// 		{
-// 			pthread_mutex_lock(philo->right);
-// 			printf("%llu %d has taken a fork\n", get_current_time(), philo->id);
-// 			pthread_mutex_lock(philo->left);
-// 			printf("%llu %d has taken a fork\n", get_current_time(), philo->id);
-// 		}
-// 		else
-// 		{
-// 			pthread_mutex_lock(philo->left);
-// 			printf("%llu %d has taken a fork\n", get_current_time(), philo->id);
-// 			pthread_mutex_lock(philo->right);
-// 			printf("%llu %d has taken a fork\n", get_current_time(), philo->id);
-// 		}
-// 		printf("%llu %d is eating\n", get_current_time(), philo->id);
-// 		usleep(philo->general_data->time_to_eat * 1000);
-// 		pthread_mutex_unlock(philo->right);
-// 		pthread_mutex_unlock(philo->left);
-// 		printf("%llu %d is sleeping\n", get_current_time(), philo->id);
-// 		usleep(philo->general_data->time_to_sleep * 1000);
-// 		printf("%llu %d is thinking\n", get_current_time(), philo->id);
-// 		usleep(1000);
-// 	}
-// }
 
 void	routine_two(t_philo *philo)
 {
@@ -60,26 +40,8 @@ void	routine_two(t_philo *philo)
 	i = 0;
 	while (i < philo->general_data->num_meals)
 	{
-		if (philo->id % 2 == 1)
-		{
-			pthread_mutex_lock(philo->right);
-			printf("%llu %d has taken a fork\n", get_current_time(), philo->id);
-			pthread_mutex_lock(philo->left);
-			printf("%llu %d has taken a fork\n", get_current_time(), philo->id);
-		}
-		else
-		{
-			pthread_mutex_lock(philo->left);
-			printf("%llu %d has taken a fork\n", get_current_time(), philo->id);
-			pthread_mutex_lock(philo->right);
-			printf("%llu %d has taken a fork\n", get_current_time(), philo->id);
-		}
-		printf("%llu %d is eating\n", get_current_time(), philo->id);
-		usleep(philo->general_data->time_to_eat * 1000);
-		pthread_mutex_unlock(philo->right);
-		pthread_mutex_unlock(philo->left);
-		printf("%llu %d is sleeping\n", get_current_time(), philo->id);
-		usleep(philo->general_data->time_to_sleep * 1000);
+		pick_up_forks(philo);
+		eating(philo);
 		printf("%llu %d is thinking\n", get_current_time(), philo->id);
 		usleep(1000);
 		i++;
@@ -118,3 +80,44 @@ void	start_routine(t_philo_data *data)
 			exit_message("Join failure");
 	}
 }
+
+// void	routine_one(t_philo *philo)
+// {
+// 	u_int64_t	last_ate;
+
+// 	last_ate = get_current_time();
+// 	while (1)
+// 	{
+// 		pick_up_forks(philo);
+// 		eating(philo);
+// 		printf("%llu %d is eating\n", get_current_time(), philo->id);
+// 		last_ate = get_current_time();
+// 		usleep(philo->general_data->time_to_eat * 1000);
+// 		pthread_mutex_unlock(philo->right);
+// 		pthread_mutex_unlock(philo->left);
+// 		if (get_current_time() - last_ate > (u_int64_t)philo->general_data->time_to_die)
+// 		{
+// 			printf("Philo %d has died\n", philo->id);
+// 			break ;
+// 		}
+// 		printf("%llu %d is sleeping\n", get_current_time(), philo->id);
+// 		usleep(philo->general_data->time_to_sleep * 1000);
+// 		printf("%llu %d is thinking\n", get_current_time(), philo->id);
+// 		usleep(100);
+// 	}
+// }
+
+// void	routine_one(t_philo *philo)
+// {
+// 	u_int64_t	last_ate;
+
+// 	last_ate = get_current_time();
+// 	while (1)
+// 	{
+// 		pick_up_forks_and_eat(philo);
+// 		printf("%llu %d is sleeping\n", get_current_time(), philo->id);
+// 		usleep(philo->general_data->time_to_sleep * 1000);
+// 		printf("%llu %d is thinking\n", get_current_time(), philo->id);
+// 		usleep(1000);
+// 	}
+// }

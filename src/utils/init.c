@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:17:10 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/07 15:41:49 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/09 13:08:32 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	init_philos(t_philo_data *data)
 		data->philos[i].general_data = data;
 		data->philos[i].left = &data->num_forks[i];
 		data->philos[i].right = &data->num_forks[(i + 1) % data->num_philos];
+		data->philos[i].meals_eaten = 0;
+		data->philos[i].philo_full = false;
 	}
 	if (!data->philos->general_data)
 		exit_message("no good\n");
