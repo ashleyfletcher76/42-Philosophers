@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/09 13:14:49 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/10 16:58:55 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ typedef struct	s_philo
 {
 	int				id;
 	int				meals_eaten;
-	u_int64_t		start_time;
+	int				start_time;
+	u_int64_t		last_ate;
 	bool			philo_full;
 	pthread_t		philo;
+	pthread_mutex_t	meal_mutex;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 	t_philo_data	*general_data;
@@ -43,7 +45,9 @@ typedef struct s_philo_data
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			num_meals;
+	int				start_time;
 	t_philo			*philos;
+	pthread_mutex_t	status_mutex;
 	pthread_mutex_t	*num_forks;
 }	t_philo_data;
 
@@ -52,14 +56,18 @@ void		start_routine(t_philo_data *data);
 void		pick_up_forks(t_philo *philo);
 void		eating(t_philo *philo);
 void		my_sleep(t_philo *philo, u_int64_t time);
+void		*monitor(void *arg);
+void		start_monitor(t_philo_data *data, pthread_t monitor_thread);
 
 //init
 void		init_struct(t_philo_data *data, int argc, char **argv);
 void		init_philos(t_philo_data *data);
+void		init_mutex_meals(t_philo_data *data);
+void		init_forks(t_philo_data *data);
 
 //tools
 bool		check_arguments(int	argc, char **argv);
-u_int64_t	get_current_time(void);
+int			get_current_time(void);
 
 //libft
 int			ft_atoi(const char *str);

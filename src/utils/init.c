@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:17:10 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/09 13:08:32 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/10 16:54:54 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	init_struct(t_philo_data *data, int argc, char **argv)
 		data->num_meals = ft_atoi(argv[5]);
 	else
 		data->num_meals = -1;
+	if (pthread_mutex_init(&data->status_mutex, NULL) != 0)
+		exit_message("Failed log mutex");
 }
 
 void	init_forks(t_philo_data *data)
@@ -47,6 +49,24 @@ void	init_forks(t_philo_data *data)
 	}
 }
 
+void	init_mutex_meals(t_philo_data *data)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < data->num_philos)
+	{
+		if (pthread_mutex_init(&data->philos[i].meal_mutex, NULL) != 0)
+		{
+			j = -1;
+			while (++j < i)
+				pthread_mutex_destroy(&data->num_forks[j]);
+			exit_message("Mutex init failure");
+		}
+	}
+}
+
 void	init_philos(t_philo_data *data)
 {
 	int	i;
@@ -65,6 +85,7 @@ void	init_philos(t_philo_data *data)
 		data->philos[i].meals_eaten = 0;
 		data->philos[i].philo_full = false;
 	}
+	init_mutex_meals(data);
 	if (!data->philos->general_data)
 		exit_message("no good\n");
 }
