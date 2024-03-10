@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sleep.c                                            :+:      :+:    :+:   */
+/*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 11:50:19 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/10 16:59:49 by asfletch         ###   ########.fr       */
+/*   Created: 2024/03/10 17:57:10 by asfletch          #+#    #+#             */
+/*   Updated: 2024/03/10 17:58:27 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	my_sleep(t_philo *philo, u_int64_t time)
+void	cleaner(t_philo_data *data)
 {
-	useconds_t	time_in_us;
+	int	i;
 
-	(void)philo;
-	time_in_us = time * 1000;
-	usleep(time_in_us);
-}
-
-void	status(t_philo *philo, char *status)
-{
-	pthread_mutex_lock(&philo->general_data->status_mutex);
-	printf("%d %d %s\n", get_current_time() - philo->general_data->start_time, philo->id, status);
-	pthread_mutex_unlock(&philo->general_data->status_mutex);
+	i = -1;
+	while (++i < data->num_philos)
+	{
+		pthread_mutex_destroy(&data->num_forks[i]);
+		pthread_mutex_destroy(&data->philos[i].meal_mutex);
+	}
+	free(data->num_forks);
+	free(data->philos);
 }

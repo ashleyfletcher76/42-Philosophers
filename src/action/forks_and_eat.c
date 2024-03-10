@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:50:13 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/10 16:41:12 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:05:11 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@ void	pick_up_forks(t_philo *philo)
 	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_lock(philo->right);
-		printf("%d %d has taken a fork\n", get_current_time() - philo->start_time, philo->id);
+		status_print(philo, "has taken a fork");
 		pthread_mutex_lock(philo->left);
-		printf("%d %d has taken a fork\n", get_current_time() - philo->start_time, philo->id);
+		status_print(philo, "has taken a fork");
 	}
 	else
 	{
 		pthread_mutex_lock(philo->left);
-		printf("%d %d has taken a fork\n", get_current_time() - philo->start_time, philo->id);
+		status_print(philo, "has taken a fork");
 		pthread_mutex_lock(philo->right);
-		printf("%d %d has taken a fork\n", get_current_time() - philo->start_time, philo->id);
+		status_print(philo, "has taken a fork");
 	}
 }
 
 void	eating(t_philo *philo)
 {
-	printf("%d %d is eating\n", get_current_time() - philo->start_time, philo->id);
+	status_print(philo, "is eating");
 	pthread_mutex_lock(&philo->meal_mutex);
 	philo->meals_eaten++;
 	philo->last_ate = get_current_time();

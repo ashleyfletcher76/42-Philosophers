@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 07:56:38 by asfletch          #+#    #+#              #
-#    Updated: 2024/03/07 11:45:14 by asfletch         ###   ########.fr        #
+#    Updated: 2024/03/10 17:56:35 by asfletch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ CFLAGS = -Wall -Wextra -Werror -I./includes/ -g
 OBJ_DIR = obj
 OBJ = $(OBJ_DIR)/main.o \
 	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(wildcard src/utils/*.c)) \
-	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(wildcard src/routine/*.c))
+	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(wildcard src/main_logic/*.c)) \
+	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(wildcard src/action/*.c)) \
 
 NAME = philo
 
@@ -46,7 +47,8 @@ $(NAME) : $(OBJ_DIR) $(OBJ)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)/utils
-	mkdir -p $(OBJ_DIR)/routine
+	mkdir -p $(OBJ_DIR)/main_logic
+	mkdir -p $(OBJ_DIR)/action
 
 $(OBJ_DIR)/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
