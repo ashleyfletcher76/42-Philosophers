@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:00:32 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/10 17:52:30 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/11 11:46:45 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	routine_one(t_philo *philo)
 {
-	philo->general_data->start_time = get_current_time();
-	philo->last_ate = get_current_time();
+	philo->general_data->start_time = current_time();
+	philo->last_ate = current_time();
 	while (1)
 	{
 		pick_up_forks(philo);
 		eating(philo);
-		status_print(philo, " is sleeping");
+		status_print(philo, "is sleeping");
 		my_sleep(philo, philo->general_data->time_to_sleep);
+		//thinking(philo);
 		status_print(philo, "is thinking");
-		usleep(100);
 	}
 }
 
@@ -32,10 +32,14 @@ void	routine_two(t_philo *philo)
 	int	i;
 
 	i = 0;
+	philo->general_data->start_time = current_time();
+	philo->last_ate = current_time();
 	while (i < philo->general_data->num_meals)
 	{
 		pick_up_forks(philo);
 		eating(philo);
+		status_print(philo, "is sleeping");
+		my_sleep(philo, philo->general_data->time_to_sleep);
 		status_print(philo, "is thinking");
 		usleep(1000);
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/10 18:03:56 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/11 11:25:26 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_philo_data
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			num_meals;
-	int				start_time;
+	long			start_time;
 	t_philo			*philos;
 	pthread_mutex_t	status_mutex;
 	pthread_mutex_t	*num_forks;
@@ -54,7 +54,8 @@ typedef struct s_philo_data
 void		start_routine(t_philo_data *data);
 void		pick_up_forks(t_philo *philo);
 void		eating(t_philo *philo);
-void		my_sleep(t_philo *philo, u_int64_t time);
+void		thinking(t_philo *philo);
+void		my_sleep(t_philo *philo, long time);
 void		*monitor(void *arg);
 void		status_print(t_philo *philo, char *status);
 void		start_monitor(t_philo_data *data, pthread_t monitor_thread);
@@ -67,7 +68,7 @@ void		init_forks(t_philo_data *data);
 
 //tools
 bool		check_arguments(int	argc, char **argv);
-int			get_current_time(void);
+long		current_time(void);
 
 //libft
 int			ft_atoi(const char *str);
