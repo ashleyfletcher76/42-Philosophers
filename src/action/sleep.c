@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:50:19 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/11 12:49:43 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:47:25 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	my_sleep(t_philo *philo, long time)
 	(void)philo;
 	start = current_time();
 	while ((current_time() - start) < time)
-		usleep(500);
+		usleep(200);
 }
 
 void	status_print(t_philo *philo, char *status)

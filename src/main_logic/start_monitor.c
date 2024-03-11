@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:57:21 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/11 11:26:07 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:47:36 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*monitor(void *arg)
 			}
 			pthread_mutex_unlock(&data->philos[i].meal_mutex);
 		}
-		usleep(1000);
+		usleep(500);
 	}
 	return (NULL);
 }

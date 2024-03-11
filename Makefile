@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+         #
+#    By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 07:56:38 by asfletch          #+#    #+#              #
-#    Updated: 2024/03/10 17:56:35 by asfletch         ###   ########.fr        #
+#    Updated: 2024/03/11 14:03:51 by asfletch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ NAME = philo
 
 $(NAME) : $(OBJ_DIR) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ)  $(LDFLAGS) -o $(NAME) -lreadline
-	echo "$(COLOUR_MAGENTA)Philo compiled successfully!$(COLOUR_END)"
+	echo "$(COLOUR_RED)Philo compiled successfully!$(COLOUR_END)"
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)

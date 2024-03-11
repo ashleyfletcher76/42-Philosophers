@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/11 11:25:26 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:04:12 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		init_forks(t_philo_data *data);
 
 //tools
 bool		check_arguments(int	argc, char **argv);
-long		current_time(void);
+int			current_time(void);
 
 //libft
 int			ft_atoi(const char *str);
