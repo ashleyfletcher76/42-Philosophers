@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:17:10 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 11:55:29 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:56:47 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	init_struct(t_philo_data *data, int argc, char **argv)
 		data->num_meals = ft_atoi(argv[5]);
 	else
 		data->num_meals = -1;
+	data->philo_dead = false;
+	data->start_time = 0;
+	data->philos = 0;
 	if (pthread_mutex_init(&data->status_mutex, NULL) != 0)
 		exit_message("Failed log mutex");
 }

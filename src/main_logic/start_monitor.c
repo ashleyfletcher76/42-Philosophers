@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_monitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:57:21 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 11:49:07 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:16:36 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	start_monitor(t_philo_data *data, pthread_t monitor_thread)
 	{
 		if (pthread_join(data->philos[i].philo, NULL) != 0)
 		{
-			cleaner(data);
+			//cleaner(data);
 			exit_message("Join failure");
 		}
 	}
 	if (pthread_join(monitor_thread, NULL) != 0)
 	{
-		cleaner(data);
+		//cleaner(data);
 		exit_message("Monitor thread join failure");
 	}
 }
@@ -49,8 +49,8 @@ void	*monitor(void *arg)
 			{
 				printf("%ld %d died\n", current_time() - data->start_time,
 						data->philos[i].id);
-				cleaner(data);
-				exit(0);
+				data->philo_dead = true;
+				return (NULL);
 			}
 			pthread_mutex_unlock(&data->philos[i].meal_mutex);
 		}

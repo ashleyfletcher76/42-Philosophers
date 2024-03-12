@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 11:49:26 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:35:33 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_philo_data
 	long			time_to_sleep;
 	long			num_meals;
 	long			start_time;
+	bool			philo_dead;
 	t_philo			*philos;
 	pthread_mutex_t	status_mutex;
 	pthread_mutex_t	*num_forks;

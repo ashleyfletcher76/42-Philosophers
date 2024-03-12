@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:00:59 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 10:51:09 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:56:20 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv)
 	t_philo_data	data;
 	pthread_t		monitor_thread;
 
+	monitor_thread = 0;
 	if (argc < 5 || argc > 6)
 		exit_message("Too few or too many args!");
 	if (check_arguments(argc, argv))

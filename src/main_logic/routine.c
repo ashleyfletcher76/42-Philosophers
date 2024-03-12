@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:00:32 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 11:59:05 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:28:49 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@ void	routine_one(t_philo *philo)
 	philo->last_ate = current_time();
 	if (philo->id % 2 == 1)
 		usleep(1000);
-	while (1)
+	while (!philo->general_data->philo_dead)
 	{
 		pick_up_forks(philo);
 		eating(philo);
-		status_print(philo, "is sleeping");
-		my_wait(philo, philo->general_data->time_to_sleep);
-		status_print(philo, "is thinking");
+		if (!philo->general_data->philo_dead)
+		{
+			status_print(philo, "is sleeping");
+			my_wait(philo, philo->general_data->time_to_sleep);
+			status_print(philo, "is thinking");
+		}
 	}
 }
 
@@ -37,7 +40,7 @@ void	routine_two(t_philo *philo)
 	philo->last_ate = current_time();
 	if (philo->id % 2 == 1)
 		usleep(1000);
-	while (i < philo->general_data->num_meals)
+	while (i < philo->general_data->num_meals && philo->general_data->philo_dead == false)
 	{
 		pick_up_forks(philo);
 		eating(philo);

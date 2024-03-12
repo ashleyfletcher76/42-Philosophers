@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:50:19 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 10:23:48 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:34:35 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,13 @@ void	my_wait(t_philo *philo, long time)
 
 void	status_print(t_philo *philo, char *status)
 {
-	pthread_mutex_lock(&philo->general_data->status_mutex);
-	printf("%ld %d %s\n", current_time() - philo->general_data->start_time,
+	if (!philo->general_data->philo_dead)
+	{
+		pthread_mutex_lock(&philo->general_data->status_mutex);
+		printf("%ld %d %s\n", current_time() - philo->general_data->start_time,
 			philo->id, status);
-	pthread_mutex_unlock(&philo->general_data->status_mutex);
+		pthread_mutex_unlock(&philo->general_data->status_mutex);
+	}
 }
 
 int	current_time(void)
