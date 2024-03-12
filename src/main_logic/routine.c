@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:00:32 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/11 17:00:47 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:48:48 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ void	routine_one(t_philo *philo)
 {
 	philo->general_data->start_time = current_time();
 	philo->last_ate = current_time();
+	if (philo->id % 2 == 1)
+		usleep(1000);
 	while (1)
 	{
 		pick_up_forks(philo);
 		eating(philo);
 		status_print(philo, "is sleeping");
-		my_sleep(philo, philo->general_data->time_to_sleep);
+		my_wait(philo, philo->general_data->time_to_sleep);
 		status_print(philo, "is thinking");
 	}
 }
@@ -33,12 +35,14 @@ void	routine_two(t_philo *philo)
 	i = 0;
 	philo->general_data->start_time = current_time();
 	philo->last_ate = current_time();
+	if (philo->id % 2 == 1)
+		usleep(1000);
 	while (i < philo->general_data->num_meals)
 	{
 		pick_up_forks(philo);
 		eating(philo);
 		status_print(philo, "is sleeping");
-		my_sleep(philo, philo->general_data->time_to_sleep);
+		my_wait(philo, philo->general_data->time_to_sleep);
 		status_print(philo, "is thinking");
 		i++;
 	}
@@ -65,6 +69,17 @@ void	start_routine(t_philo_data *data)
 	{
 		if (pthread_create(&data->philos[i].philo, NULL,
 			 philo_routine, (void *)&data->philos[i]) != 0)
-			exit_message("Thread creation failed");
+			{
+				i = -1;
+				while (++i < data->num_philos)
+				{
+					pthread_mutex_destroy(&data->num_forks[i]);
+					pthread_mutex_destroy(&data->philos[i].meal_mutex);
+				}
+				pthread_mutex_destroy(&data->status_mutex);
+				free (data->philos);
+				free (data->num_forks);
+				exit_message("Thread creation failed");
+			}
 	}
 }

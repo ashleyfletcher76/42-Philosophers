@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:57:21 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/11 16:47:36 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:51:47 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,16 @@ void	start_monitor(t_philo_data *data, pthread_t monitor_thread)
 	while (++i < data->num_philos)
 	{
 		if (pthread_join(data->philos[i].philo, NULL) != 0)
+		{
+			cleaner(data);
 			exit_message("Join failure");
+		}
 	}
 	if (pthread_join(monitor_thread, NULL) != 0)
+	{
+		cleaner(data);
 		exit_message("Monitor thread join failure");
+	}
 }
 
 void	*monitor(void *arg)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:57:10 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/10 17:58:27 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:25:22 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	cleaner(t_philo_data *data)
 		pthread_mutex_destroy(&data->num_forks[i]);
 		pthread_mutex_destroy(&data->philos[i].meal_mutex);
 	}
+	pthread_mutex_destroy(&data->status_mutex);
 	free(data->num_forks);
 	free(data->philos);
 }

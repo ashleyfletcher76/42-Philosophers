@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:00:59 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/11 16:36:37 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:51:09 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	main(int argc, char **argv)
 	init_philos(&data);
 	start_routine(&data);
 	if (pthread_create(&monitor_thread, NULL, &monitor, (void *)&data) != 0)
+	{
+		cleaner(&data);
 		exit_message("Failed to create the monitor");
+	}
 	start_monitor(&data, monitor_thread);
 	cleaner(&data);
 	return (0);

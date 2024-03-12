@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:17:10 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/11 16:57:37 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:44:44 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ void	init_forks(t_philo_data *data)
 	j = -1;
 	data->num_forks = malloc(sizeof(pthread_mutex_t) * data->num_philos);
 	if (!data->num_forks)
+	{
+		free (data->philos);
+		pthread_mutex_destroy(&data->status_mutex);
 		exit_message("Failed forks looool\n");
+	}
 	while (++i < data->num_philos)
 	{
 		if (pthread_mutex_init(&data->num_forks[i], NULL) != 0)
@@ -44,6 +48,8 @@ void	init_forks(t_philo_data *data)
 			while (++j < i)
 				pthread_mutex_destroy(&data->num_forks[j]);
 			free (data->num_forks);
+			free (data->philos);
+			pthread_mutex_destroy(&data->status_mutex);
 			exit_message("Mutex init failure");
 		}
 	}
@@ -62,7 +68,12 @@ void	init_mutex_meals(t_philo_data *data)
 			j = -1;
 			while (++j < i)
 				pthread_mutex_destroy(&data->num_forks[j]);
-			exit_message("Mutex init failure");
+			{
+				free (data->num_forks);
+				free (data->philos);
+				pthread_mutex_destroy(&data->status_mutex);
+				exit_message("Mutex init failure");
+			}
 		}
 	}
 }
@@ -74,7 +85,10 @@ void	init_philos(t_philo_data *data)
 	i = -1;
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
 	if (!data->philos)
+	{
+		pthread_mutex_destroy(&data->status_mutex);
 		exit_message("Malloc for philo peeps failed");
+	}
 	init_forks(data);
 	while (++i < data->num_philos)
 	{
@@ -82,7 +96,6 @@ void	init_philos(t_philo_data *data)
 		data->philos[i].general_data = data;
 		data->philos[i].left = &data->num_forks[i];
 		data->philos[i].right = &data->num_forks[(i + 1) % data->num_philos];
-		data->philos[i].meals_eaten = 0;
 		data->philos[i].philo_full = false;
 	}
 	init_mutex_meals(data);
