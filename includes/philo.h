@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 10:21:52 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:49:26 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_philo_data
 void		start_routine(t_philo_data *data);
 void		pick_up_forks(t_philo *philo);
 void		eating(t_philo *philo);
-void		thinking(t_philo *philo);
 void		my_wait(t_philo *philo, long time);
 void		*monitor(void *arg);
 void		status_print(t_philo *philo, char *status);

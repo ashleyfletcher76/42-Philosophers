@@ -6,7 +6,7 @@
 #    By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 07:56:38 by asfletch          #+#    #+#              #
-#    Updated: 2024/03/11 14:03:51 by asfletch         ###   ########.fr        #
+#    Updated: 2024/03/12 11:22:01 by asfletch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,10 @@ COLOUR_END = \033[0m
 
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -I./includes/ -g
+CFLAGS = -Wall -Wextra -Werror -I./includes/ -g -pthread
 
 # CFLAGS += -Wall -Wextra -Werror -I./include/ -g3 -fsanitize=address -fsanitize=undefined
-# LDFLAGS += -fsanitize=address -fsanitize=undefined -lreadline
+# LDFLAGS += -fsanitize=address -fsanitize=undefined
 
 OBJ_DIR = obj
 OBJ = $(OBJ_DIR)/main.o \
@@ -41,7 +41,7 @@ OBJ = $(OBJ_DIR)/main.o \
 NAME = philo
 
 $(NAME) : $(OBJ_DIR) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ)  $(LDFLAGS) -o $(NAME) -lreadline
+	$(CC) $(CFLAGS) $(OBJ)  $(LDFLAGS) -o $(NAME)
 	echo "$(COLOUR_RED)Philo compiled successfully!$(COLOUR_END)"
 
 $(OBJ_DIR):

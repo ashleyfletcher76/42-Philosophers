@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:17:10 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 10:44:44 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:55:29 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	init_philos(t_philo_data *data)
 		data->philos[i].left = &data->num_forks[i];
 		data->philos[i].right = &data->num_forks[(i + 1) % data->num_philos];
 		data->philos[i].philo_full = false;
+		data->philos[i].last_ate = 0;
 	}
 	init_mutex_meals(data);
 	if (!data->philos->general_data)

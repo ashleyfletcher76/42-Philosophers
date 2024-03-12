@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:57:21 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 10:51:47 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:49:07 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	*monitor(void *arg)
 			{
 				printf("%ld %d died\n", current_time() - data->start_time,
 						data->philos[i].id);
+				cleaner(data);
 				exit(0);
 			}
 			pthread_mutex_unlock(&data->philos[i].meal_mutex);

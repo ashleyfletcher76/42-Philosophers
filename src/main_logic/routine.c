@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:00:32 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 10:48:48 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:59:05 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	start_routine(t_philo_data *data)
 	while (++i < data->num_philos)
 	{
 		if (pthread_create(&data->philos[i].philo, NULL,
-			 philo_routine, (void *)&data->philos[i]) != 0)
+			philo_routine, (void *)&data->philos[i]) != 0)
 			{
 				i = -1;
 				while (++i < data->num_philos)
