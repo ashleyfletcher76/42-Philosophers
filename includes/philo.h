@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 14:35:33 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:32:30 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_philo
 	int				last_ate;
 	bool			philo_full;
 	pthread_t		philo;
-	pthread_mutex_t	meal_mutex;
+	pthread_mutex_t	protect_last;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 	t_philo_data	*general_data;
@@ -62,7 +62,7 @@ void		start_monitor(t_philo_data *data, pthread_t monitor_thread);
 //init
 void		init_struct(t_philo_data *data, int argc, char **argv);
 void		init_philos(t_philo_data *data);
-void		init_mutex_meals(t_philo_data *data);
+void		init_protect_last(t_philo_data *data);
 void		init_forks(t_philo_data *data);
 
 //tools

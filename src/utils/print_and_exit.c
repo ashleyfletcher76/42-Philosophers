@@ -6,11 +6,11 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:14:17 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/06 13:14:48 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/13 10:40:33 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 static void	ft_putchar_fd(char c, int fd)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   start_monitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:57:21 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 15:16:36 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:35:28 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 void	start_monitor(t_philo_data *data, pthread_t monitor_thread)
 {
@@ -44,15 +44,16 @@ void	*monitor(void *arg)
 		i = -1;
 		while (++i < data->num_philos)
 		{
-			pthread_mutex_lock(&data->philos[i].meal_mutex);
+			pthread_mutex_lock(&data->philos[i].protect_last);
 			if (current_time() - data->philos[i].last_ate > data->time_to_die)
 			{
 				printf("%ld %d died\n", current_time() - data->start_time,
 						data->philos[i].id);
 				data->philo_dead = true;
+				pthread_mutex_unlock(&data->philos[i].protect_last);
 				return (NULL);
 			}
-			pthread_mutex_unlock(&data->philos[i].meal_mutex);
+			pthread_mutex_unlock(&data->philos[i].protect_last);
 		}
 		usleep(500);
 	}

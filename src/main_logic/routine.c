@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:00:32 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 15:28:49 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:34:59 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 void	routine_one(t_philo *philo)
 {
@@ -77,7 +77,7 @@ void	start_routine(t_philo_data *data)
 				while (++i < data->num_philos)
 				{
 					pthread_mutex_destroy(&data->num_forks[i]);
-					pthread_mutex_destroy(&data->philos[i].meal_mutex);
+					pthread_mutex_destroy(&data->philos[i].protect_last);
 				}
 				pthread_mutex_destroy(&data->status_mutex);
 				free (data->philos);

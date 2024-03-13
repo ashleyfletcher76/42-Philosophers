@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   action_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:50:19 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 15:34:35 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/13 10:35:34 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 void	my_wait(t_philo *philo, long time)
 {

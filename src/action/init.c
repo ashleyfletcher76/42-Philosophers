@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:17:10 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 14:56:47 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:36:44 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "philo.h"
 
 void	init_struct(t_philo_data *data, int argc, char **argv)
 {
@@ -58,7 +58,7 @@ void	init_forks(t_philo_data *data)
 	}
 }
 
-void	init_mutex_meals(t_philo_data *data)
+void	init_protect_last(t_philo_data *data)
 {
 	int	i;
 	int	j;
@@ -66,11 +66,11 @@ void	init_mutex_meals(t_philo_data *data)
 	i = -1;
 	while (++i < data->num_philos)
 	{
-		if (pthread_mutex_init(&data->philos[i].meal_mutex, NULL) != 0)
+		if (pthread_mutex_init(&data->philos[i].protect_last, NULL) != 0)
 		{
 			j = -1;
 			while (++j < i)
-				pthread_mutex_destroy(&data->num_forks[j]);
+				pthread_mutex_destroy(&data->philos[j].protect_last);
 			{
 				free (data->num_forks);
 				free (data->philos);
@@ -102,7 +102,7 @@ void	init_philos(t_philo_data *data)
 		data->philos[i].philo_full = false;
 		data->philos[i].last_ate = 0;
 	}
-	init_mutex_meals(data);
+	init_protect_last(data);
 	if (!data->philos->general_data)
 		exit_message("no good\n");
 }
