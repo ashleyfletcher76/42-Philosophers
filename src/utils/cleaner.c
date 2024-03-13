@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:57:10 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/13 12:33:10 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:32:11 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,12 @@ void	cleaner(t_philo_data *data)
 	pthread_mutex_destroy(&data->status_mutex);
 	free(data->num_forks);
 	free(data->philos);
+}
+
+void	free_some(t_philo_data *data)
+{
+	free (data->num_forks);
+	free (data->philos);
+	pthread_mutex_destroy(&data->status_mutex);
+	exit_message("Mutex init failure");
 }

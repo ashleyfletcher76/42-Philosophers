@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/13 12:32:30 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:31:37 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ int			ft_isdigit(int c);
 //exit
 void		exit_message(char *msg);
 void		cleaner(t_philo_data *data);
+void		free_some(t_philo_data *data);
 
 #endif
