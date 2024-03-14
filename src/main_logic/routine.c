@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:00:32 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 17:56:14 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:38:06 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	routine_one(t_philo *philo)
 {
+	int	i;
+
+	i = 0;
 	pthread_mutex_lock(&philo->protect_last);
 	philo->last_ate = current_time();
 	pthread_mutex_unlock(&philo->protect_last);
@@ -26,7 +29,7 @@ void	routine_one(t_philo *philo)
 		pick_up_forks(philo);
 		eating(philo);
 		pthread_mutex_lock(&philo->gen_data->status_mutex);
-		if (philo->gen_data->philo_dead == true)
+		if (philo->gen_data->philo_dead == true || i < philo->gen_data->num_meals)
 		{
 			pthread_mutex_unlock(&philo->gen_data->status_mutex);
 			return ;
@@ -35,6 +38,7 @@ void	routine_one(t_philo *philo)
 		status_print(philo, "is sleeping");
 		my_wait(philo, philo->gen_data->time_to_sleep);
 		status_print(philo, "is thinking");
+		i++;
 	}
 }
 
@@ -78,10 +82,10 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->gen_data->num_meals == -1)
+	// if (philo->gen_data->num_meals == -1)
 		routine_one(philo);
-	else
-		routine_two(philo);
+	// else
+	// 	routine_two(philo);
 	return (NULL);
 }
 
