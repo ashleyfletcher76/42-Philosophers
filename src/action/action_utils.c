@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:50:19 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 13:38:46 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:52:53 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	my_wait(t_philo *philo, long time)
 
 void	status_print(t_philo *philo, char *status)
 {
-	pthread_mutex_lock(&philo->general_data->status_mutex);
-	if (!philo->general_data->philo_dead)
+	pthread_mutex_lock(&philo->gen_data->status_mutex);
+	if (!philo->gen_data->philo_dead)
 	{
-		printf("%ld %d %s\n", current_time() - philo->general_data->start_time,
+		printf("%ld %d %s\n", current_time() - philo->gen_data->start_time,
 			philo->id, status);
 	}
-	pthread_mutex_unlock(&philo->general_data->status_mutex);
+	pthread_mutex_unlock(&philo->gen_data->status_mutex);
 }
 
 int	current_time(void)

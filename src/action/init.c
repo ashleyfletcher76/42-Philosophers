@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:17:10 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/13 14:32:26 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:51:26 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ void	init_philos(t_philo_data *data)
 	while (++i < data->num_philos)
 	{
 		data->philos[i].id = i + 1;
-		data->philos[i].general_data = data;
+		data->philos[i].gen_data = data;
 		data->philos[i].left = &data->num_forks[i];
 		data->philos[i].right = &data->num_forks[(i + 1) % data->num_philos];
 		data->philos[i].philo_full = false;
 		data->philos[i].last_ate = 0;
 	}
 	init_protect_last(data);
-	if (!data->philos->general_data)
+	if (!data->philos->gen_data)
 		exit_message("no good\n");
 }

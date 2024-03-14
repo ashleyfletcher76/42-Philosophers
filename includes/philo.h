@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/13 14:31:37 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:50:46 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct	s_philo
 	pthread_mutex_t	protect_last;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
-	t_philo_data	*general_data;
+	t_philo_data	*gen_data;
 }	t_philo;
 
 typedef struct s_philo_data
