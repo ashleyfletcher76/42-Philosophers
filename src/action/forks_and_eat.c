@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:50:13 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/13 15:46:32 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:38:39 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,19 @@
 
 void	pick_up_forks(t_philo *philo)
 {
-	if (philo->left > philo->right)
-	{
-		pthread_mutex_lock(philo->left);
-		status_print(philo, "has taken a fork");
-		pthread_mutex_lock(philo->right);
-		status_print(philo, "has taken a fork");
-	}
-	else
-	{
-		pthread_mutex_lock(philo->right);
-		status_print(philo, "has taken a fork");
-		pthread_mutex_lock(philo->left);
-		status_print(philo, "has taken a fork");
-	}
+	pthread_mutex_lock(philo->right);
+	status_print(philo, "has taken a fork");
+	pthread_mutex_lock(philo->left);
+	status_print(philo, "has taken a fork");
 }
 
 void	eating(t_philo *philo)
 {
 	status_print(philo, "is eating");
-	pthread_mutex_lock(&philo->protect_last);
+	pthread_mutex_lock(&philo->general_data->status_mutex);
 	philo->last_ate = current_time();
-	pthread_mutex_unlock(&philo->protect_last);
+	pthread_mutex_unlock(&philo->general_data->status_mutex);
 	my_wait(philo, philo->general_data->time_to_eat);
-	pthread_mutex_unlock(philo->right);
 	pthread_mutex_unlock(philo->left);
+	pthread_mutex_unlock(philo->right);
 }
