@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:57:21 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 17:42:29 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:59:40 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,17 @@ void	*monitor(void *arg)
 
 void	second_monitor(t_philo_data *data, int i)
 {
-	while (++i < data->num_philos)
+	while (++i < data->num_philos && i < data->num_meals)
 	{
-	pthread_mutex_lock(&data->status_mutex);
-	pthread_mutex_lock(&data->philos[i].protect_last);
-	if (current_time() - data->philos[i].last_ate > data->time_to_die)
-	{
-		philo_died(data, i);
-		return ;
-	}
-	pthread_mutex_unlock(&data->philos[i].protect_last);
-	pthread_mutex_unlock(&data->status_mutex);
+		pthread_mutex_lock(&data->status_mutex);
+		pthread_mutex_lock(&data->philos[i].protect_last);
+		if (current_time() - data->philos[i].last_ate > data->time_to_die)
+		{
+			philo_died(data, i);
+			return ;
+		}
+		pthread_mutex_unlock(&data->philos[i].protect_last);
+		pthread_mutex_unlock(&data->status_mutex);
 	}
 	usleep(500);
 }

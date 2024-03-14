@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 17:42:15 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:52:51 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	start_monitor(t_philo_data *data, pthread_t monitor_thread);
 void	philo_died(t_philo_data *data, int i);
 void	second_monitor(t_philo_data *data, int i);
 void	one_philosopher(t_philo *philo);
+void	routine_helper(t_philo *philo);
 
 //init
 void	init_struct(t_philo_data *data, int argc, char **argv);

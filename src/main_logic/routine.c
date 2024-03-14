@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:00:32 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 17:49:16 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:56:14 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,18 @@ void	routine_two(t_philo *philo)
 			pthread_mutex_unlock(&philo->gen_data->status_mutex);
 			return ;
 		}
-		pthread_mutex_unlock(&philo->gen_data->status_mutex);
-		status_print(philo, "is sleeping");
-		my_wait(philo, philo->gen_data->time_to_sleep);
-		status_print(philo, "is thinking");
+		routine_helper(philo);
 		i++;
 	}
 }
 
-// void	philo_two_helper(t_philo *philo)
-// {
-
-// }
+void	routine_helper(t_philo *philo)
+{
+	pthread_mutex_unlock(&philo->gen_data->status_mutex);
+	status_print(philo, "is sleeping");
+	my_wait(philo, philo->gen_data->time_to_sleep);
+	status_print(philo, "is thinking");
+}
 
 void	*philo_routine(void *arg)
 {
