@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:50:13 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 16:59:15 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:24:47 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,12 @@ void	eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->gen_data->status_mutex);
 	my_wait(philo, philo->gen_data->time_to_eat);
 	pthread_mutex_unlock(philo->right);
+	pthread_mutex_unlock(philo->left);
+}
+
+void	one_philosopher(t_philo *philo)
+{
+	pthread_mutex_lock(philo->left);
+	status_print(philo, "has taken a fork");
 	pthread_mutex_unlock(philo->left);
 }

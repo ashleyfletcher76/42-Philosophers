@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:57:21 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 13:38:14 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:42:29 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,18 @@ void	*monitor(void *arg)
 	while (1)
 	{
 		i = -1;
+		if (data->num_meals > 0)
+		{
+			second_monitor(data, i);
+			return (NULL);
+		}
 		while (++i < data->num_philos)
 		{
 			pthread_mutex_lock(&data->status_mutex);
 			pthread_mutex_lock(&data->philos[i].protect_last);
 			if (current_time() - data->philos[i].last_ate > data->time_to_die)
 			{
-				pthread_mutex_unlock(&data->philos[i].protect_last);
-				printf("%ld %d died\n", current_time() - data->start_time,
-						data->philos[i].id);
-				data->philo_dead = true;
-				pthread_mutex_unlock(&data->status_mutex);
+				philo_died(data, i);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&data->philos[i].protect_last);
@@ -62,3 +63,60 @@ void	*monitor(void *arg)
 	}
 	return (NULL);
 }
+
+void	second_monitor(t_philo_data *data, int i)
+{
+	while (++i < data->num_philos)
+	{
+	pthread_mutex_lock(&data->status_mutex);
+	pthread_mutex_lock(&data->philos[i].protect_last);
+	if (current_time() - data->philos[i].last_ate > data->time_to_die)
+	{
+		philo_died(data, i);
+		return ;
+	}
+	pthread_mutex_unlock(&data->philos[i].protect_last);
+	pthread_mutex_unlock(&data->status_mutex);
+	}
+	usleep(500);
+}
+
+void	philo_died(t_philo_data *data, int i)
+{
+	pthread_mutex_unlock(&data->philos[i].protect_last);
+	printf("%ld %d died\n", current_time() - data->start_time,
+			data->philos[i].id);
+	data->philo_dead = true;
+	pthread_mutex_unlock(&data->status_mutex);
+}
+
+// void	*monitor(void *arg)
+// {
+// 	t_philo_data	*data;
+// 	int				i;
+
+// 	data = (t_philo_data *)arg;
+// 	i = -1;
+// 	while (1)
+// 	{
+// 		i = -1;
+// 		while (++i < data->num_philos)
+// 		{
+// 			pthread_mutex_lock(&data->status_mutex);
+// 			pthread_mutex_lock(&data->philos[i].protect_last);
+// 			if (current_time() - data->philos[i].last_ate > data->time_to_die)
+// 			{
+// 				pthread_mutex_unlock(&data->philos[i].protect_last);
+// 				printf("%ld %d died\n", current_time() - data->start_time,
+// 						data->philos[i].id);
+// 				data->philo_dead = true;
+// 				pthread_mutex_unlock(&data->status_mutex);
+// 				return (NULL);
+// 			}
+// 			pthread_mutex_unlock(&data->philos[i].protect_last);
+// 			pthread_mutex_unlock(&data->status_mutex);
+// 		}
+// 		usleep(500);
+// 	}
+// 	return (NULL);
+// }

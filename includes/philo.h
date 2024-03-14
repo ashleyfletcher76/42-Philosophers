@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 13:50:46 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:42:15 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,32 +51,35 @@ typedef struct s_philo_data
 }	t_philo_data;
 
 //main
-void		start_routine(t_philo_data *data);
-void		pick_up_forks(t_philo *philo);
-void		eating(t_philo *philo);
-void		my_wait(t_philo *philo, long time);
-void		*monitor(void *arg);
-void		status_print(t_philo *philo, char *status);
-void		start_monitor(t_philo_data *data, pthread_t monitor_thread);
+void	start_routine(t_philo_data *data);
+void	pick_up_forks(t_philo *philo);
+void	eating(t_philo *philo);
+void	my_wait(t_philo *philo, long time);
+void	*monitor(void *arg);
+void	status_print(t_philo *philo, char *status);
+void	start_monitor(t_philo_data *data, pthread_t monitor_thread);
+void	philo_died(t_philo_data *data, int i);
+void	second_monitor(t_philo_data *data, int i);
+void	one_philosopher(t_philo *philo);
 
 //init
-void		init_struct(t_philo_data *data, int argc, char **argv);
-void		init_philos(t_philo_data *data);
-void		init_protect_last(t_philo_data *data);
-void		init_forks(t_philo_data *data);
+void	init_struct(t_philo_data *data, int argc, char **argv);
+void	init_philos(t_philo_data *data);
+void	init_protect_last(t_philo_data *data);
+void	init_forks(t_philo_data *data);
 
 //tools
-bool		check_arguments(int	argc, char **argv);
-int			current_time(void);
+bool	check_arguments(int	argc, char **argv);
+int		current_time(void);
 
 //libft
-int			ft_atoi(const char *str);
-void		ft_putendl_fd(char *s, int fd);
-int			ft_isdigit(int c);
+int		ft_atoi(const char *str);
+void	ft_putendl_fd(char *s, int fd);
+int		ft_isdigit(int c);
 
 //exit
-void		exit_message(char *msg);
-void		cleaner(t_philo_data *data);
-void		free_some(t_philo_data *data);
+void	exit_message(char *msg);
+void	cleaner(t_philo_data *data);
+void	free_some(t_philo_data *data);
 
 #endif

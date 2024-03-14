@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:17:10 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 13:51:26 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:09:34 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	init_forks(t_philo_data *data)
 			while (++j < i)
 				pthread_mutex_destroy(&data->num_forks[j]);
 			free_some(data);
+			return ;
 		}
 	}
 }
@@ -69,6 +70,7 @@ void	init_protect_last(t_philo_data *data)
 			while (++j < i)
 				pthread_mutex_destroy(&data->philos[j].protect_last);
 			free_some(data);
+			return ;
 		}
 	}
 }

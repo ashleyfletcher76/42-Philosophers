@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:14:17 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/13 10:40:33 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:07:27 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,4 @@ void	ft_putendl_fd(char *s, int fd)
 void	exit_message(char *msg)
 {
 	ft_putendl_fd(msg, 2);
-	exit(1);
 }
