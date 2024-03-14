@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:57:21 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/13 12:35:28 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:34:27 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,19 @@ void	*monitor(void *arg)
 		i = -1;
 		while (++i < data->num_philos)
 		{
+			pthread_mutex_lock(&data->status_mutex);
 			pthread_mutex_lock(&data->philos[i].protect_last);
 			if (current_time() - data->philos[i].last_ate > data->time_to_die)
 			{
+				pthread_mutex_unlock(&data->philos[i].protect_last);
 				printf("%ld %d died\n", current_time() - data->start_time,
 						data->philos[i].id);
 				data->philo_dead = true;
-				pthread_mutex_unlock(&data->philos[i].protect_last);
+				pthread_mutex_unlock(&data->status_mutex);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&data->philos[i].protect_last);
+			pthread_mutex_unlock(&data->status_mutex);
 		}
 		usleep(500);
 	}
