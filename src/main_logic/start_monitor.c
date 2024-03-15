@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:57:21 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 17:59:40 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/15 08:20:36 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,10 @@ void	start_monitor(t_philo_data *data, pthread_t monitor_thread)
 	while (++i < data->num_philos)
 	{
 		if (pthread_join(data->philos[i].philo, NULL) != 0)
-		{
-			//cleaner(data);
 			exit_message("Join failure");
-		}
 	}
 	if (pthread_join(monitor_thread, NULL) != 0)
-	{
-		//cleaner(data);
 		exit_message("Monitor thread join failure");
-	}
 }
 
 void	*monitor(void *arg)
@@ -39,19 +33,15 @@ void	*monitor(void *arg)
 
 	data = (t_philo_data *)arg;
 	i = -1;
-	while (1)
+	while (!all_philos_full(data))
 	{
 		i = -1;
-		if (data->num_meals > 0)
-		{
-			second_monitor(data, i);
-			return (NULL);
-		}
 		while (++i < data->num_philos)
 		{
 			pthread_mutex_lock(&data->status_mutex);
 			pthread_mutex_lock(&data->philos[i].protect_last);
-			if (current_time() - data->philos[i].last_ate > data->time_to_die)
+			if (current_time() - data->philos[i].last_ate > data->time_to_die
+				&& !data->philos[i].philo_full)
 			{
 				philo_died(data, i);
 				return (NULL);
@@ -64,9 +54,22 @@ void	*monitor(void *arg)
 	return (NULL);
 }
 
+bool	all_philos_full(t_philo_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->num_philos)
+	{
+		if (!data->philos[i].philo_full)
+			return (false);
+	}
+	return (true);
+}
+
 void	second_monitor(t_philo_data *data, int i)
 {
-	while (++i < data->num_philos && i < data->num_meals)
+	while (++i < data->num_philos || i < data->num_meals)
 	{
 		pthread_mutex_lock(&data->status_mutex);
 		pthread_mutex_lock(&data->philos[i].protect_last);

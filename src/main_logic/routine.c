@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:00:32 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 20:38:06 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/15 08:23:11 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	routine_one(t_philo *philo)
 	if (philo->gen_data->num_philos == 1)
 		return (one_philosopher(philo));
 	if (philo->id % 2 == 1)
-		usleep(1000);
+		usleep(500);
 	while (1)
 	{
 		pick_up_forks(philo);
 		eating(philo);
 		pthread_mutex_lock(&philo->gen_data->status_mutex);
-		if (philo->gen_data->philo_dead == true || i < philo->gen_data->num_meals)
+		if (philo->gen_data->philo_dead == true)
 		{
 			pthread_mutex_unlock(&philo->gen_data->status_mutex);
 			return ;
@@ -67,6 +67,9 @@ void	routine_two(t_philo *philo)
 		routine_helper(philo);
 		i++;
 	}
+	pthread_mutex_lock(&philo->gen_data->status_mutex);
+	philo->philo_full = true;
+	pthread_mutex_unlock(&philo->gen_data->status_mutex);
 }
 
 void	routine_helper(t_philo *philo)
@@ -82,10 +85,11 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	// if (philo->gen_data->num_meals == -1)
+
+	if (philo->gen_data->num_meals == -1)
 		routine_one(philo);
-	// else
-	// 	routine_two(philo);
+	else
+		routine_two(philo);
 	return (NULL);
 }
 
