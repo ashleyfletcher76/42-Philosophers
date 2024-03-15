@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:00:59 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/15 11:14:37 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:23:23 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	main(int argc, char **argv)
 
 	monitor_thread = 0;
 	if (argc < 5 || argc > 6)
-		exit_message("Too few or too many args!");
+		return (exit_message("Too few, too many or incorrect args!"), 2);
 	if (check_arguments(argc, argv))
-		exit_message("Not all numeric args loooooool");
+		return (exit_message("Not all numeric args loooooool"), 2);
 	init_struct(&data, argc, argv);
 	if (data.num_philos == 0 || data.num_meals == 0)
 	{
