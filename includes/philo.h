@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:02:04 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/15 08:21:12 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/15 09:45:50 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # include <sys/time.h>
 # include <stdint.h>
 
-typedef struct	s_philo_data t_philo_data;
+typedef struct s_philo_data	t_philo_data;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				id;
 	int				last_ate;
@@ -52,17 +52,17 @@ typedef struct s_philo_data
 
 //main
 void	start_routine(t_philo_data *data);
+void	routine_one(t_philo *philo);
+void	routine_two(t_philo *philo);
+void	routine_helper(t_philo *philo);
+void	*monitor(void *arg);
+void	start_monitor(t_philo_data *data, pthread_t monitor_thread);
+
+//action
 void	pick_up_forks(t_philo *philo);
 void	eating(t_philo *philo);
-void	my_wait(t_philo *philo, long time);
-void	*monitor(void *arg);
-void	status_print(t_philo *philo, char *status);
-void	start_monitor(t_philo_data *data, pthread_t monitor_thread);
-void	philo_died(t_philo_data *data, int i);
-void	second_monitor(t_philo_data *data, int i);
 void	one_philosopher(t_philo *philo);
-void	routine_helper(t_philo *philo);
-bool	all_philos_full(t_philo_data *data);
+void	philo_died(t_philo_data *data, int i);
 
 //init
 void	init_struct(t_philo_data *data, int argc, char **argv);
@@ -71,8 +71,11 @@ void	init_protect_last(t_philo_data *data);
 void	init_forks(t_philo_data *data);
 
 //tools
-bool	check_arguments(int	argc, char **argv);
+bool	check_arguments(int argc, char **argv);
 int		current_time(void);
+void	status_print(t_philo *philo, char *status);
+void	my_wait(t_philo *philo, long time);
+bool	all_philos_full(t_philo_data *data);
 
 //libft
 int		ft_atoi(const char *str);

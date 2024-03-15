@@ -6,13 +6,13 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:16:34 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/13 10:40:23 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/15 09:43:59 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	check_arguments(int	argc, char **argv)
+bool	check_arguments(int argc, char **argv)
 {
 	int	i;
 	int	j;

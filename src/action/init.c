@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:17:10 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/14 17:09:34 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/15 09:41:58 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void	init_forks(t_philo_data *data)
 	data->num_forks = malloc(sizeof(pthread_mutex_t) * data->num_philos);
 	if (!data->num_forks)
 	{
-		free (data->philos);
-		pthread_mutex_destroy(&data->status_mutex);
+		free_some(data);
 		exit_message("Failed forks looool\n");
 	}
 	while (++i < data->num_philos)
@@ -97,6 +96,4 @@ void	init_philos(t_philo_data *data)
 		data->philos[i].last_ate = 0;
 	}
 	init_protect_last(data);
-	if (!data->philos->gen_data)
-		exit_message("no good\n");
 }

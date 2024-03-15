@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:57:21 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/15 08:20:36 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/15 09:46:14 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*monitor(void *arg)
 			pthread_mutex_unlock(&data->philos[i].protect_last);
 			pthread_mutex_unlock(&data->status_mutex);
 		}
-		usleep(500);
+		usleep(200);
 	}
 	return (NULL);
 }
@@ -67,59 +67,11 @@ bool	all_philos_full(t_philo_data *data)
 	return (true);
 }
 
-void	second_monitor(t_philo_data *data, int i)
-{
-	while (++i < data->num_philos || i < data->num_meals)
-	{
-		pthread_mutex_lock(&data->status_mutex);
-		pthread_mutex_lock(&data->philos[i].protect_last);
-		if (current_time() - data->philos[i].last_ate > data->time_to_die)
-		{
-			philo_died(data, i);
-			return ;
-		}
-		pthread_mutex_unlock(&data->philos[i].protect_last);
-		pthread_mutex_unlock(&data->status_mutex);
-	}
-	usleep(500);
-}
-
 void	philo_died(t_philo_data *data, int i)
 {
 	pthread_mutex_unlock(&data->philos[i].protect_last);
 	printf("%ld %d died\n", current_time() - data->start_time,
-			data->philos[i].id);
+		data->philos[i].id);
 	data->philo_dead = true;
 	pthread_mutex_unlock(&data->status_mutex);
 }
-
-// void	*monitor(void *arg)
-// {
-// 	t_philo_data	*data;
-// 	int				i;
-
-// 	data = (t_philo_data *)arg;
-// 	i = -1;
-// 	while (1)
-// 	{
-// 		i = -1;
-// 		while (++i < data->num_philos)
-// 		{
-// 			pthread_mutex_lock(&data->status_mutex);
-// 			pthread_mutex_lock(&data->philos[i].protect_last);
-// 			if (current_time() - data->philos[i].last_ate > data->time_to_die)
-// 			{
-// 				pthread_mutex_unlock(&data->philos[i].protect_last);
-// 				printf("%ld %d died\n", current_time() - data->start_time,
-// 						data->philos[i].id);
-// 				data->philo_dead = true;
-// 				pthread_mutex_unlock(&data->status_mutex);
-// 				return (NULL);
-// 			}
-// 			pthread_mutex_unlock(&data->philos[i].protect_last);
-// 			pthread_mutex_unlock(&data->status_mutex);
-// 		}
-// 		usleep(500);
-// 	}
-// 	return (NULL);
-// }

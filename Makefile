@@ -6,7 +6,7 @@
 #    By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 07:56:38 by asfletch          #+#    #+#              #
-#    Updated: 2024/03/12 11:22:01 by asfletch         ###   ########.fr        #
+#    Updated: 2024/03/15 09:48:55 by asfletch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,6 @@ COLOUR_END = \033[0m
 CC = cc
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -I./includes/ -g -pthread
-
-# CFLAGS += -Wall -Wextra -Werror -I./include/ -g3 -fsanitize=address -fsanitize=undefined
-# LDFLAGS += -fsanitize=address -fsanitize=undefined
 
 OBJ_DIR = obj
 OBJ = $(OBJ_DIR)/main.o \
