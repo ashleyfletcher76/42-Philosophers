@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:57:21 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/15 09:46:14 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:40:08 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*monitor(void *arg)
 			pthread_mutex_unlock(&data->philos[i].protect_last);
 			pthread_mutex_unlock(&data->status_mutex);
 		}
-		usleep(200);
+		usleep(500);
 	}
 	return (NULL);
 }
@@ -59,11 +59,16 @@ bool	all_philos_full(t_philo_data *data)
 	int	i;
 
 	i = -1;
+	pthread_mutex_lock(&data->status_mutex);
 	while (++i < data->num_philos)
 	{
 		if (!data->philos[i].philo_full)
+		{
+			pthread_mutex_unlock(&data->status_mutex);
 			return (false);
+		}
 	}
+	pthread_mutex_unlock(&data->status_mutex);
 	return (true);
 }
 

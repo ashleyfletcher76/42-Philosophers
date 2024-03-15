@@ -6,7 +6,7 @@
 #    By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 07:56:38 by asfletch          #+#    #+#              #
-#    Updated: 2024/03/15 09:48:55 by asfletch         ###   ########.fr        #
+#    Updated: 2024/03/15 10:18:44 by asfletch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,17 +28,17 @@ COLOUR_END = \033[0m
 CC = cc
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -I./includes/ -g -pthread
+SRCS = philo.c utils/print_and_exit.c utils/cleaner.c utils/check_args.c \
+	utils/atoi_isdigit.c main_logic/start_monitor.c main_logic/routine.c \
+	action/init.c action/forks_and_eat.c action/action_utils.c \
 
 OBJ_DIR = obj
-OBJ = $(OBJ_DIR)/main.o \
-	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(wildcard src/utils/*.c)) \
-	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(wildcard src/main_logic/*.c)) \
-	$(patsubst src/%.c,$(OBJ_DIR)/%.o,$(wildcard src/action/*.c)) \
+OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 NAME = philo
 
 $(NAME) : $(OBJ_DIR) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ)  $(LDFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	echo "$(COLOUR_RED)Philo compiled successfully!$(COLOUR_END)"
 
 $(OBJ_DIR):

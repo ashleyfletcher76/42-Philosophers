@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asfletch <asfletch@student.42heilbronn>    +#+  +:+       +#+        */
+/*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:00:59 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/12 14:56:20 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:14:37 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int	main(int argc, char **argv)
 	if (check_arguments(argc, argv))
 		exit_message("Not all numeric args loooooool");
 	init_struct(&data, argc, argv);
+	if (data.num_philos == 0 || data.num_meals == 0)
+	{
+		pthread_mutex_destroy(&data.status_mutex);
+		return (exit_message("Incorrect number"), 2);
+	}
 	init_philos(&data);
 	start_routine(&data);
 	if (pthread_create(&monitor_thread, NULL, &monitor, (void *)&data) != 0)

@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:00:32 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/15 09:44:44 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:44:52 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	routine_one(t_philo *philo)
 {
-	status_print(philo, "is thinking");
 	while (1)
 	{
 		pick_up_forks(philo);
@@ -25,7 +24,8 @@ void	routine_one(t_philo *philo)
 			pthread_mutex_unlock(&philo->gen_data->status_mutex);
 			return ;
 		}
-		if (philo->philo_full == false)
+		pthread_mutex_unlock(&philo->gen_data->status_mutex);
+		if (!philo->philo_full)
 			routine_helper(philo);
 	}
 }
@@ -35,7 +35,6 @@ void	routine_two(t_philo *philo)
 	int	i;
 
 	i = 0;
-	status_print(philo, "is thinking");
 	while (i < philo->gen_data->num_meals)
 	{
 		pick_up_forks(philo);
@@ -46,7 +45,8 @@ void	routine_two(t_philo *philo)
 			pthread_mutex_unlock(&philo->gen_data->status_mutex);
 			return ;
 		}
-		if (philo->philo_full == false)
+		pthread_mutex_unlock(&philo->gen_data->status_mutex);
+		if (!philo->philo_full)
 			routine_helper(philo);
 		i++;
 	}
@@ -57,7 +57,6 @@ void	routine_two(t_philo *philo)
 
 void	routine_helper(t_philo *philo)
 {
-	pthread_mutex_unlock(&philo->gen_data->status_mutex);
 	status_print(philo, "is sleeping");
 	my_wait(philo, philo->gen_data->time_to_sleep);
 	status_print(philo, "is thinking");
