@@ -6,7 +6,7 @@
 /*   By: asfletch <asfletch@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:00:59 by asfletch          #+#    #+#             */
-/*   Updated: 2024/03/15 12:23:23 by asfletch         ###   ########.fr       */
+/*   Updated: 2024/03/15 16:23:57 by asfletch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	if (check_arguments(argc, argv))
 		return (exit_message("Not all numeric args loooooool"), 2);
 	init_struct(&data, argc, argv);
-	if (data.num_philos == 0 || data.num_meals == 0)
+	if (data.num_philos == 0 || data.num_meals == 0 || data.num_philos > 200)
 	{
 		pthread_mutex_destroy(&data.status_mutex);
 		return (exit_message("Incorrect number"), 2);
