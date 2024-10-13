@@ -43,11 +43,22 @@ The program is implemented using **threads** and **mutexes** to solve the concur
 .
 ├── Makefile
 ├── includes
-│   └── philosophers.h
+│   └── philo.h
 ├── src
-│   ├── main.c
-│   ├── philosophers.c
-│   └── utils.c
+│   ├── philo.c
+│   ├── utils
+│   │   ├── cleaner.c
+│   │   ├── atoi_isdigit.c
+│   │   ├── print_and_exit.c
+│   │   └── check_args.c
+│   ├── action
+│   │   ├── init.c
+│   │   ├── forks_and_eat.c
+│   │   └── action_utils.c
+│   └── main_logic
+│       ├── routine.c
+│       └── start_monitor.c
+
 ```
 
 ## Installation
