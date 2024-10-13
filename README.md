@@ -84,3 +84,5 @@ This will run the simulation with 5 philosophers, where each philosopher:
 - The simulation must stop when all philosophers have eaten the required number of meals (if specified).
 
 ## Authors
+
+- **Ashley Fletcher** - *Developer* - [GitHub Profile](https://github.com/ashleyfletcher76)
